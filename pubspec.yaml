@@ -12,14 +12,18 @@ dependencies:
   get: 4.6.5
 
 dev_dependencies:
+  cloud_firestore: ^4.3.1
+  external_app_launcher: ^3.1.0
   firebase_auth: ^4.2.10
   firebase_core: ^2.7.1
+  firebase_storage: ^11.0.15
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   google_sign_in: ^6.0.2
   pinput: ^2.2.31
   step_progress_indicator: ^1.0.2
+  url_launcher: ^6.1.10
 
 flutter:
   uses-material-design: true

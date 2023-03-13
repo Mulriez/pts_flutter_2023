@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import 'package:pts_2023_001/app/modules/emailVerify/bindings/email_verify_binding.dart';
+import 'package:pts_2023_001/app/modules/emailVerify/views/email_verify_view.dart';
+import 'package:pts_2023_001/app/modules/forgotPassword/bindings/forgot_password_binding.dart';
+import 'package:pts_2023_001/app/modules/forgotPassword/views/forgot_password_view.dart';
 import 'package:pts_2023_001/app/modules/home/bindings/home_binding.dart';
 import 'package:pts_2023_001/app/modules/home/views/home_view.dart';
 import 'package:pts_2023_001/app/modules/login/bindings/login_binding.dart';
@@ -50,6 +54,16 @@ class AppPages {
       name: _Paths.OTP_VERIFY,
       page: () => OtpVerifyView(),
       binding: OtpVerifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.EMAIL_VERIFY,
+      page: () => EmailVerifyView(),
+      binding: EmailVerifyBinding(),
     ),
   ];
 }

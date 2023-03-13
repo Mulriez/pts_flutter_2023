@@ -67,13 +67,20 @@ class AuthController extends GetxController {
     }
   }
 
-  resetPassword(String email) async {
+ resetPassword(String email) async {
     try {
       final credential = await auth.sendPasswordResetEmail(email: email);
-      Get.toNamed(Routes.HOME);
+      Get.offAllNamed(Routes.EMAIL_VERIFY);
     } on FirebaseAuthException catch (e) {
-      Get.defaultDialog(
-          title: "Alert!", middleText: "GAGAL reset password bang messi");
+      if (e.code == 'user-not-found') {
+        Get.defaultDialog(
+          title: "Error!",
+          middleText: 'No user found for that email.',
+          backgroundColor: Colors.red,
+          titleStyle: TextStyle(color: Colors.white),
+          middleTextStyle: TextStyle(color: Colors.white),
+        );
+      }
     }
   }
 
