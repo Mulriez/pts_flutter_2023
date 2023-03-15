@@ -19,73 +19,83 @@ class HomeView extends GetView<HomeController> {
     double lebar = MediaQuery.of(context).size.width;
     return Scaffold(
         body: SingleChildScrollView(
-            child: Container(
-                child: Column(children: [
-      Container(
-          height: tinggi * 0.12,
-          decoration: BoxDecoration(color: bgLogin),
-          padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: lebar * 0.4,
+          child: Column(children: [
+            Container(
+                height: tinggi * 0.12,
+                decoration: BoxDecoration(color: bgLogin),
+                padding: EdgeInsets.fromLTRB(20, 50, 20, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () => authC.logout(),
-                      child: Icon(
-                        CupertinoIcons.line_horizontal_3,
-                        color: Colors.white,
-                        size: 30,
+                    Container(
+                      width: lebar * 0.5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => authC.logout(),
+                            child: Icon(
+                              Icons.logout_outlined,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
-                ),
-              ),
-            ],
-          )),
-      FutureBuilder<QuerySnapshot<Object?>>(
-          future: siswaC.getData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              var dataSiswa = snapshot.data!.docs;
-              return Container(
-                child: Wrap(
-                    children: List.generate(dataSiswa.length, (index) {
-                  return card(
-                    foto: (dataSiswa[index].data()
-                        as Map<String, dynamic>)["foto"],
-                    NISN: (dataSiswa[index].data()
-                            as Map<String, dynamic>)["NISN"]
-                        .toString(),
-                    nama: (dataSiswa[index].data()
-                        as Map<String, dynamic>)["nama"],
-                    alamat: (dataSiswa[index].data()
-                        as Map<String, dynamic>)["alamat"],
-                    tanggalLahir: (dataSiswa[index].data()
-                        as Map<String, dynamic>)["tanggalLahir"],
-                    tempatLahir: (dataSiswa[index].data()
-                        as Map<String, dynamic>)["tempatLahir"],
-                  );
-                })),
-              );
-            } else {
-              return SizedBox();
-            }
-          })
-    ]))));
+                )),
+            FutureBuilder<QuerySnapshot<Object?>>(
+                future: siswaC.getData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    var dataSiswa = snapshot.data!.docs;
+                    return Container(
+                      child: Wrap(
+                          children: List.generate(dataSiswa.length, (index) {
+                        return card(
+                            foto: (dataSiswa[index].data()
+                                as Map<String, dynamic>)["foto"],
+                            NISN: (dataSiswa[index].data()
+                                    as Map<String, dynamic>)["NISN"]
+                                .toString(),
+                            nama: (dataSiswa[index].data()
+                                as Map<String, dynamic>)["nama"],
+                            alamat: (dataSiswa[index].data()
+                                as Map<String, dynamic>)["alamat"],
+                            tanggalLahir: (dataSiswa[index].data()
+                                as Map<String, dynamic>)["tanggalLahir"],
+                            tempatLahir: (dataSiswa[index].data()
+                                as Map<String, dynamic>)["tempatLahir"],
+                            delete: (dataSiswa[index].id),
+                            arguments: dataSiswa[index]);
+                      })),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 300),
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ]),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.toNamed(Routes.ADD_SISWA),
+          child: Icon(Icons.add),
+        ));
   }
 }
 
-Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
+Widget card(
+    {NISN, foto, nama, alamat, tanggalLahir, tempatLahir, delete, arguments}) {
+  final siswaC = Get.put(SiswaController());
   return Container(
     margin: EdgeInsets.only(top: 10),
-    width: 340,
+    width: 345,
     height: 180,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20), color: Colors.cyan),
+    decoration:
+        BoxDecoration(borderRadius: BorderRadius.circular(20), color: bgLogin),
     child: Row(children: [
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -96,7 +106,8 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
             height: 150,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(image: NetworkImage(foto))),
+                image: DecorationImage(
+                    image: NetworkImage(foto), fit: BoxFit.cover)),
           )
         ],
       ),
@@ -121,7 +132,7 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
               Row(
                 children: [
                   Text(
-                    "Nama:",
+                    "Name:",
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
@@ -134,7 +145,7 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
               Row(
                 children: [
                   Text(
-                    "Alamat:",
+                    "Address:",
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
@@ -147,7 +158,7 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
               Row(
                 children: [
                   Text(
-                    "Tanggal Lahir:",
+                    "Date of Birth:",
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
@@ -160,7 +171,7 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
               Row(
                 children: [
                   Text(
-                    "Tempat Lahir:",
+                    "Place of Birth:",
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
@@ -171,24 +182,25 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: 33),
                 child: Row(
                   children: [
                     Container(
                       width: 80,
                       height: 30,
-                      margin: EdgeInsets.only(right: 20),
+                      margin: EdgeInsets.only(right: 25),
                       child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                               backgroundColor: Colors.white),
-                          onPressed: () => Get.toNamed(Routes.LOGIN_PHONE),
+                          onPressed: () => Get.toNamed(Routes.EDIT_SISWA,
+                              arguments: arguments),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.mode_edit_outline_outlined,
                                 size: 20,
-                                color: tam,
+                                // color: tam,
                               ),
                             ],
                           )),
@@ -196,11 +208,10 @@ Widget card({NISN, foto, nama, alamat, tanggalLahir, tempatLahir}) {
                     Container(
                       width: 80,
                       height: 30,
-                      margin: EdgeInsets.only(right: 20),
                       child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                               backgroundColor: Colors.white),
-                          onPressed: () => Get.toNamed(Routes.LOGIN_PHONE),
+                          onPressed: () => siswaC.deleteData(delete),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

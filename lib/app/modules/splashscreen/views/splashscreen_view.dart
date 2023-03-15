@@ -49,7 +49,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
                     margin: EdgeInsets.only(bottom: 90),
                     width: 260,
                     child: Text(
-                      "Connect with each other with chatting or calling. Enjoy safe and private texting.",
+                      "Access all student data from this school application safely and easily",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -61,7 +61,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
                             backgroundColor: Colors.white),
                         onPressed: () => Get.toNamed(Routes.LOGIN),
                         child: Text(
-                          "Login",
+                          "Get Started",
                           style: TextStyle(
                               color: Color(0xFF0D8173),
                               fontWeight: FontWeight.w300),

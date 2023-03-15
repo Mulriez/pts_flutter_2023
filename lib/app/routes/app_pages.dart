@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import 'package:pts_2023_001/app/modules/addSiswa/bindings/add_siswa_binding.dart';
+import 'package:pts_2023_001/app/modules/addSiswa/views/add_siswa_view.dart';
+import 'package:pts_2023_001/app/modules/editSiswa/bindings/edit_siswa_binding.dart';
+import 'package:pts_2023_001/app/modules/editSiswa/views/edit_siswa_view.dart';
 import 'package:pts_2023_001/app/modules/emailVerify/bindings/email_verify_binding.dart';
 import 'package:pts_2023_001/app/modules/emailVerify/views/email_verify_view.dart';
 import 'package:pts_2023_001/app/modules/forgotPassword/bindings/forgot_password_binding.dart';
@@ -64,6 +68,16 @@ class AppPages {
       name: _Paths.EMAIL_VERIFY,
       page: () => EmailVerifyView(),
       binding: EmailVerifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_SISWA,
+      page: () => AddSiswaView(),
+      binding: AddSiswaBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_SISWA,
+      page: () => EditSiswaView(),
+      binding: EditSiswaBinding(),
     ),
   ];
 }

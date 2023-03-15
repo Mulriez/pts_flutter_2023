@@ -23,6 +23,7 @@ dev_dependencies:
   google_sign_in: ^6.0.2
   pinput: ^2.2.31
   step_progress_indicator: ^1.0.2
+  syncfusion_flutter_datepicker: ^20.4.53
   url_launcher: ^6.1.10
 
 flutter:

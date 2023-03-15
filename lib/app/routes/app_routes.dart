@@ -12,6 +12,8 @@ abstract class Routes {
   static const OTP_VERIFY = _Paths.OTP_VERIFY;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const EMAIL_VERIFY = _Paths.EMAIL_VERIFY;
+  static const ADD_SISWA = _Paths.ADD_SISWA;
+  static const EDIT_SISWA = _Paths.EDIT_SISWA;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const OTP_VERIFY = '/otp-verify';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const EMAIL_VERIFY = '/email-verify';
+  static const ADD_SISWA = '/add-siswa';
+  static const EDIT_SISWA = '/edit-siswa';
 }
