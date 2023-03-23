@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pts_2023_001/app/routes/app_pages.dart';
 import 'package:pts_2023_001/config/warna.dart';
+import 'package:lottie/lottie.dart';
 
 
 import '../controllers/splashscreen_controller.dart';
@@ -33,7 +34,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
                       width: lebar,
                       height: tinggi * 0.3,
                       margin: EdgeInsets.only(bottom: 20),
-                      child: Image.asset("assets/dll/sp.png")),
+                      child: Lottie.network("https://assets5.lottiefiles.com/packages/lf20_omn51ec8.json")),
                   Container(
                     margin: EdgeInsets.only(bottom: 30),
                     width: 200,

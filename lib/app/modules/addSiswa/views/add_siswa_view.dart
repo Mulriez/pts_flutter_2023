@@ -7,7 +7,7 @@ import 'package:pts_2023_001/config/warna.dart';
 
 import '../controllers/add_siswa_controller.dart';
 
-class Tanggal extends GetxController {
+class Tanggal2 extends GetxController {
   var selectedDate = DateTime.now().obs;
 
   void onDateSelected(DateTime newDate) {
@@ -19,167 +19,190 @@ class AddSiswaView extends GetView<AddSiswaController> {
   final siswaC = Get.put(SiswaController());
   final homeC = Get.put(HomeController());
   final data = Get.arguments;
-  final tanggal = Get.put(Tanggal());
-  final TextEditingController ttl = TextEditingController();
+  final tanggal2 = Get.put(Tanggal2());
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Create Data'),
-          centerTitle: true,
-          backgroundColor: bgLogin,
-        ),
-        body: SingleChildScrollView(
-            child: Container(
-                child: Column(children: [
-          Container(
-              margin: EdgeInsets.only(top: 50),
-              padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        keyboardType: TextInputType.number,
-                        controller: controller.nisn,
-                        label: 'NISN',
-                        hint: 'Enter NISN',
-                        obscure: false),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        // keyboardType: TextInputType.text,
-                        controller: controller.linkFoto,
-                        label: 'Photo link',
-                        hint: 'Enter Photo link',
-                        obscure: false),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        // keyboardType: TextInputType.text,
-                        controller: controller.nama,
-                        label: 'Name',
-                        hint: 'Enter Name',
-                        obscure: false),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        // keyboardType: TextInputType.text,
-                        controller: controller.alamat,
-                        label: 'Address',
-                        hint: 'Enter Address',
-                        obscure: false),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Date of Birth",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500)),
+    return Obx(
+      () => Scaffold(
+          appBar: AppBar(
+            title: Text('Create Data'),
+            centerTitle: true,
+            backgroundColor: bgLogin,
+          ),
+          body: SingleChildScrollView(
+              child: Container(
+                  child: Column(children: [
+            Container(
+                margin: EdgeInsets.only(top: 50),
+                padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                child: Column(
+                  children: [
+                    controller.file != ""
+                        ? Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(bottom: 10),
+                            width: 600,
+                            height: 300,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    image: NetworkImage(controller.file.value),
+                                    fit: BoxFit.cover)),
+                          )
+                        : SizedBox(),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: bgLogin,
                           ),
-                        ),
-                        TextFormField(
-                          controller: ttl,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelStyle: const TextStyle(
-                              fontFamily: "Poppins",
-                              color: Colors.black,
-                              fontSize: 19,
-                            ),
-                            hintText: "Date of Birth",
-                            hintStyle: TextStyle(
-                                fontFamily: "Poppins",
-                                color: abu,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 18,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                              borderSide: BorderSide(color: tam, width: 1),
-                              gapPadding: 5,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 27, 27, 27),
-                                  width: 1),
-                              gapPadding: 5,
-                            ),
-                          ),
-                          readOnly: true,
-                          onTap: () {
-                            showDatePicker(
-                              context: context,
-                              initialDate: tanggal.selectedDate.value,
-                              firstDate: DateTime(1980),
-                              lastDate: DateTime(2030),
-                            ).then((newDate) {
-                              if (newDate != null) {
-                                tanggal.onDateSelected(newDate);
-                                ttl.text =
-                                    tanggal.selectedDate.value.toString();
-                              }
-                            });
-                          },
-                        ),
-                      ],
+                          onPressed: () => controller.uploadGambar(),
+                          child: Text(
+                            "Upload Photo",
+                            style: TextStyle(color: tam),
+                          )),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        // keyboardType: TextInputType.text,
-                        controller: controller.tempatLahir,
-                        label: 'Place of birth',
-                        hint: 'Enter Place of birth',
-                        obscure: false),
-                  ),
-                ],
-              )),
-          Container(
-              padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-              margin: EdgeInsets.only(top: 40),
-              child: InkWell(
-                  onTap: () {
-                    siswaC.addData(
-                        int.parse(controller.nisn.text),
-                        controller.linkFoto.text,
-                        controller.nama.text,
-                        controller.alamat.text,
-                        controller.tanggalLahir.text,
-                        controller.tempatLahir.text);
-                  },
-                  child: Container(
-                      width: lebar,
-                      height: 55,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: bgLogin,
-                          border: Border.all(color: tam, width: 2)),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: CustomInput(
+                          keyboardType: TextInputType.number,
+                          controller: controller.nisn,
+                          label: 'NISN',
+                          hint: 'Enter NISN',
+                          obscure: false),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: CustomInput(
+                          // keyboardType: TextInputType.text,
+                          controller: controller.nama,
+                          label: 'Name',
+                          hint: 'Enter Name',
+                          obscure: false),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: CustomInput(
+                          // keyboardType: TextInputType.text,
+                          controller: controller.alamat,
+                          label: 'Address',
+                          hint: 'Enter Address',
+                          obscure: false),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Add Data',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500))
-                          ]))))
-        ]))));
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(bottom: 5),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Date of Birth",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500)),
+                            ),
+                          ),
+                          TextFormField(
+                            controller: controller.tanggalLahir,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelStyle: const TextStyle(
+                                fontFamily: "Poppins",
+                                color: Colors.black,
+                                fontSize: 19,
+                              ),
+                              hintText: "Date of Birth",
+                              hintStyle: TextStyle(
+                                  fontFamily: "Poppins",
+                                  color: abu,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 18,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: BorderSide(color: tam, width: 1),
+                                gapPadding: 5,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 27, 27, 27),
+                                    width: 1),
+                                gapPadding: 5,
+                              ),
+                            ),
+                            readOnly: true,
+                            onTap: () {
+                              showDatePicker(
+                                context: context,
+                                initialDate: tanggal2.selectedDate.value,
+                                firstDate: DateTime(1980),
+                                lastDate: DateTime(2030),
+                              ).then((newDate) {
+                                if (newDate != null) {
+                                  tanggal2.onDateSelected(newDate);
+                                  controller.tanggalLahir.text = tanggal2
+                                      .selectedDate.value
+                                      .toString()
+                                      .substring(0, 10);
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: CustomInput(
+                          // keyboardType: TextInputType.text,
+                          controller: controller.tempatLahir,
+                          label: 'Place of birth',
+                          hint: 'Enter Place of birth',
+                          obscure: false),
+                    ),
+                  ],
+                )),
+            Container(
+                padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                margin: EdgeInsets.only(top: 40),
+                child: InkWell(
+                    onTap: () {
+                      siswaC.addData(
+                          int.parse(controller.nisn.text),
+                          controller.linkFoto.text,
+                          controller.nama.text,
+                          controller.alamat.text,
+                          controller.changeTanggal(
+                            controller.tanggalLahir.text,
+                          ),
+                          controller.tempatLahir.text);
+                    },
+                    child: Container(
+                        width: lebar,
+                        height: 55,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: bgLogin,
+                            border: Border.all(color: tam, width: 2)),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Add Data',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500))
+                            ]))))
+          ])))),
+    );
   }
 }
 

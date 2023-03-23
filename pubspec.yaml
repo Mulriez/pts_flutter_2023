@@ -14,6 +14,7 @@ dependencies:
 dev_dependencies:
   cloud_firestore: ^4.3.1
   external_app_launcher: ^3.1.0
+  file_picker: ^5.2.6
   firebase_auth: ^4.2.10
   firebase_core: ^2.7.1
   firebase_storage: ^11.0.15
@@ -21,6 +22,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   google_sign_in: ^6.0.2
+  image_picker: ^0.8.7
+  lottie: ^2.3.0
+  path_provider: ^2.0.14
   pinput: ^2.2.31
   step_progress_indicator: ^1.0.2
   syncfusion_flutter_datepicker: ^20.4.53

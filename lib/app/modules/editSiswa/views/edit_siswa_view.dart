@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -20,7 +22,6 @@ class EditSiswaView extends GetView<EditSiswaController> {
   final homeC = Get.put(HomeController());
   final data = Get.arguments;
   final tanggal = Get.put(Tanggal());
-  final TextEditingController ttl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
@@ -39,21 +40,24 @@ class EditSiswaView extends GetView<EditSiswaController> {
               child: Column(
                 children: [
                   Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: bgLogin,
+                        ),
+                        onPressed: () => controller.uploadGambar(),
+                        child: Text(
+                          "Upload Photo",
+                          style: TextStyle(color: tam),
+                        )),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: CustomInput(
                         keyboardType: TextInputType.number,
                         controller: controller.nisn,
                         label: 'NISN',
                         hint: 'Enter NISN',
-                        obscure: false),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: CustomInput(
-                        // keyboardType: TextInputType.text,
-                        controller: controller.linkFoto,
-                        label: 'Photo link',
-                        hint: 'Enter Photo link',
                         obscure: false),
                   ),
                   Container(
@@ -88,7 +92,7 @@ class EditSiswaView extends GetView<EditSiswaController> {
                           ),
                         ),
                         TextFormField(
-                          controller: ttl,
+                          controller: controller.tanggalLahir,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelStyle: const TextStyle(
@@ -130,8 +134,10 @@ class EditSiswaView extends GetView<EditSiswaController> {
                             ).then((newDate) {
                               if (newDate != null) {
                                 tanggal.onDateSelected(newDate);
-                                ttl.text =
-                                    tanggal.selectedDate.value.toString();
+                                controller.tanggalLahir.text = tanggal
+                                    .selectedDate.value
+                                    .toString()
+                                    .substring(0, 10);
                               }
                             });
                           },
@@ -161,7 +167,9 @@ class EditSiswaView extends GetView<EditSiswaController> {
                         controller.linkFoto.text,
                         controller.nama.text,
                         controller.alamat.text,
-                        controller.tanggalLahir.text,
+                        controller.changeTanggal(
+                          controller.tanggalLahir.text,
+                        ),
                         controller.tempatLahir.text);
                   },
                   child: Container(

@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pts_2023_001/app/routes/app_pages.dart';
 import 'package:pts_2023_001/config/warna.dart';
+import 'package:file_picker/file_picker.dart';
 
 class SiswaController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+  File? path;
   String url = "";
 
   Future<QuerySnapshot<Object?>> getData() async {
@@ -81,6 +85,31 @@ class SiswaController extends GetxController {
     } catch (e) {
       Get.defaultDialog(title: 'Alert', middleText: 'Failed to Delete');
       print(e);
+    }
+  }
+
+  addPhoto() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      String namaFile = result.files.first.name;
+      url = namaFile;
+
+      // try {
+      await storage.ref("${namaFile}").putFile(file);
+      final data = await storage.ref("${namaFile}").getDownloadURL();
+      url = data;
+
+      print("====================================== Success ======================================");
+      print(url);
+
+      return url;
+      // } catch (e) {
+      //   print("gagal upload ==============================================");
+      // }
+    } else {
+      print("=================================== Tidak mengirim filename ===================================");
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pts_2023_001/app/controllers/siswa_controller.dart';
 
 class EditSiswaController extends GetxController {
   //TODO: Implement EditSiswaController
@@ -12,6 +13,16 @@ class EditSiswaController extends GetxController {
   TextEditingController alamat = TextEditingController();
   TextEditingController tanggalLahir = TextEditingController();
   TextEditingController tempatLahir = TextEditingController();
+
+  changeTanggal(String tanggalMentah) {
+    return tanggalMentah.substring(0, 10);
+  }
+
+  uploadGambar() async{
+    String data = await SiswaController().addPhoto();
+    linkFoto.text = data;
+    print(data);
+  }
 
   final count = 0.obs;
   @override

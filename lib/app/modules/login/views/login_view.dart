@@ -54,6 +54,7 @@ class LoginView extends GetView<LoginController> {
                           margin: EdgeInsets.only(bottom: 20),
                           width: lebar,
                           child: TextField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: loginC.email,
                             decoration: InputDecoration(
                                 labelText: "Enter your Email",
@@ -76,8 +77,7 @@ class LoginView extends GetView<LoginController> {
                           margin: EdgeInsets.only(bottom: 2),
                           child: TextField(
                             controller: loginC.password,
-                            obscureText:
-                                loginC.showhide.value ? false : true,
+                            obscureText: loginC.showhide.value ? false : true,
                             decoration: InputDecoration(
                                 labelText: "Enter your Password",
                                 border: OutlineInputBorder(),
@@ -100,7 +100,8 @@ class LoginView extends GetView<LoginController> {
                           width: lebar,
                           margin: EdgeInsets.only(bottom: 20),
                           child: TextButton(
-                            onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
+                            onPressed: () =>
+                                Get.toNamed(Routes.FORGOT_PASSWORD),
                             child: Text(
                               "Forgot password",
                               style: TextStyle(

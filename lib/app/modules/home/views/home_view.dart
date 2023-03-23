@@ -7,6 +7,7 @@ import 'package:pts_2023_001/app/controllers/auth_controller.dart';
 import 'package:pts_2023_001/app/controllers/siswa_controller.dart';
 import 'package:pts_2023_001/app/routes/app_pages.dart';
 import 'package:pts_2023_001/config/warna.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -47,7 +48,10 @@ class HomeView extends GetView<HomeController> {
                 )),
             FutureBuilder<QuerySnapshot<Object?>>(
                 future: siswaC.getData(),
-                builder: (context, snapshot) {
+                builder: (
+                  context,
+                  snapshot,
+                ) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     var dataSiswa = snapshot.data!.docs;
                     return Container(
@@ -92,7 +96,7 @@ Widget card(
   final siswaC = Get.put(SiswaController());
   return Container(
     margin: EdgeInsets.only(top: 10),
-    width: 345,
+    width: 350,
     height: 180,
     decoration:
         BoxDecoration(borderRadius: BorderRadius.circular(20), color: bgLogin),
@@ -112,7 +116,7 @@ Widget card(
         ],
       ),
       Container(
-          padding: EdgeInsets.fromLTRB(5, 20, 10, 5),
+          padding: EdgeInsets.fromLTRB(10, 20, 10, 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -120,11 +124,17 @@ Widget card(
                 children: [
                   Text(
                     "NISN:",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
                     child: Text(
                       NISN,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -133,11 +143,17 @@ Widget card(
                 children: [
                   Text(
                     "Name:",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
                     child: Text(
                       nama,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -146,11 +162,17 @@ Widget card(
                 children: [
                   Text(
                     "Address:",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
                     child: Text(
                       alamat,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -159,11 +181,17 @@ Widget card(
                 children: [
                   Text(
                     "Date of Birth:",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
                     child: Text(
                       tanggalLahir,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -172,11 +200,17 @@ Widget card(
                 children: [
                   Text(
                     "Place of Birth:",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 3),
                     child: Text(
                       tempatLahir,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

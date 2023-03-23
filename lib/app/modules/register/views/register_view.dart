@@ -63,6 +63,7 @@ class RegisterView extends GetView<RegisterController> {
                           margin: EdgeInsets.only(bottom: 20),
                           width: lebar,
                           child: TextField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: registerC.email,
                             decoration: InputDecoration(
                                 labelText: "Enter your Email",
